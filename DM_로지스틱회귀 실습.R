@@ -38,6 +38,19 @@ training.data <- rbind(training.data, data.use[training.index,])
 
 training.data$class %>% table()
 
+###### Over sampling
+if(F){
+  tb <- training.data$class %>% table()
+  tb
+  over.n <- tb[1]-tb[2]
+  training.over.idx <- sample(1:tb[2], over.n, T)
+  training.data.bad <- training.data %>% filter(class==1)
+  training.data <- rbind(training.data, training.data.bad[training.over.idx,])
+  training.data$class %>% table()
+}
+
+
+### test
 test.data <- data.use[-training.index,]
 test.data$class %>% table()
 
@@ -56,4 +69,11 @@ pred.glm.class <- ifelse(pred.glm<0.05,0,1)
 
 ### 정확도, 민감도, 특이도
 ###### cross table
-table(test.data$class, pred.glm.class)
+tb<-table(test.data$class, pred.glm.class)
+tptn <- sum(diag(tb)) # 제대로 예측한 값
+n <- sum(tb) # 테이블값을 모두 더한 값
+
+tptn/n # 정분류율(정확도)
+tb[1,1]/(tb[1,1]+tb[1,2]) # 민감도
+tb[2,2]/(tb[2,1]+tb[2,2]) # 특이도
+
