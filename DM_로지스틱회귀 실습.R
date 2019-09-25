@@ -43,17 +43,17 @@ test.data$class %>% table()
 
 
 ### Logistic regression
-res.glm <- glm(class~., data=data.use, family=binomial)
+res.glm <- glm(class~., data=data.use, family=binomial) # class~. : class변수만 제외하고 모두 다
 summary(res.glm)
 
-res.glm.step <- step(res.glm)  #arc 필요없는 변수 제거하기
+res.glm.step <- step(res.glm)  #aic 필요없는 변수 제거하기
 summary(res.glm.step)
 
 
 pred.glm <- predict(res.glm.step, test.data, type="response")  # 0~1사이의 값.
 pred.glm.class <- ifelse(pred.glm<0.05,0,1)
 
-table(test.data$class, pred.glm.class)
 
 ### 정확도, 민감도, 특이도
-
+###### cross table
+table(test.data$class, pred.glm.class)
