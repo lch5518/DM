@@ -21,3 +21,4 @@ pred <- predict(svm.e1071, iris, decision.values = T)
 plot(svm.e1071, iris, Sepal.Width ~ Sepal.Length, slice = list(Petal.Width = 2.5, Petal.Length = 3))
 
 (acc <- table(pred, iris$Species))
+
