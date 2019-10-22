@@ -11,8 +11,9 @@ nn.iris <- nnet(Species~., data=iris, size=2, rang=0.1, decay=5e-4, maxit=200)
 nn.iris  %>% summary()
 
 
-
+install.packages("devtools")
 library(devtools)
+
 
 source_url('https://gist.githubusercontent.com/Peque/41a9e20d6687f2f3108d/raw/85e14f3a292e126f1454864427e3a189c2fe33f3/nnet_plot_update.r')
 plot.nnet(nn.iris)

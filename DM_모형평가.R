@@ -10,7 +10,7 @@ plot(iris[-5],col=iris[[5]])
 
 ### data
 data.use <- subset(iris, Species == "setosa" | Species == "Virginica")
-data.use$Sqecies <- factor(data.use$Species)
+data.use$Species <- factor(data.use$Species)
 str(data.use)
 table(data.use$Species)
 
@@ -40,10 +40,17 @@ table(data.use$Species, pred.svm)
 install.packages("pROC")
 library(pROC)
 
+### Logistic regression
+response.value <- as.integer(data.use$Species)-1
+predict.value <- as.integer(pred.glm.factor)-1
+roc.glm <- roc(response.value, predict.value)
+plot(roc.glm, col="red", print.auc=T)
+
 ### SVM
 response.value <- as.integer(data.use$Species)-1
 predict.value <- as.integer(pred.svm)-1
-roc.svm <- roc(response.value)
+roc.svm <- roc(response.value, predict.value)
+plot(roc.svm, col="blue", print.auc=T, add=T, print.auc.adj=c(1.11,1.2))
 
 ### ROC test
 roc.test(roc.glm,roc.svm)

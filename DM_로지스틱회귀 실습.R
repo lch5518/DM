@@ -2,7 +2,8 @@ rm(list = ls())
 
 library(dplyr)
 
-wd <- "C:/Users/Admin/Downloads"
+choose.dir()
+wd <- "C:/Users/dydeh/4학년2학기/DM"
 setwd(wd)
 getwd()
 
@@ -15,7 +16,6 @@ data.use <- data.raw
 
 ####### Out variable
 out.var.name <- "class"
-
 data.use[[out.var.name]] <- data.use[[out.var.name]] - 1
 data.use %>% head()
 data.use[[out.var.name]] %>% table()
